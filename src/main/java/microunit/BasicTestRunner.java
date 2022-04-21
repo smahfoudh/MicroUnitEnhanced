@@ -2,11 +2,15 @@ package microunit;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class for running unit tests without support for expected exceptions.
  */
 public class BasicTestRunner extends TestRunner {
+
 
     /**
      * Creates a {@code BasicTestRunner} object for executing the test methods
@@ -34,11 +38,18 @@ public class BasicTestRunner extends TestRunner {
             }
         }
     }
+    private static Logger logger = LoggerFactory.getLogger(BasicTestRunner.class);
 
     // CHECKSTYLE:OFF
     public static void main(String[] args) throws Exception {
+        logger.info("Java version is {}", System.getProperty("java.version"));
+        logger.error("An exception occurred", new RuntimeException("Oops, something went wrong"));
         Class<?> testClass = Class.forName(args[0]);
         new BasicTestRunner(testClass).runTestMethods();
+
+
     }
+
+
 
 }
